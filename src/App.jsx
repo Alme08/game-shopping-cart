@@ -1,8 +1,14 @@
+import Nav from './components/Nav';
+
 function App() {
 	return (
-		<div>
-			<h1 className='text-xl'>Hello World</h1>
-		</div>
+		<>
+			<section className='h-screen'>
+				<Nav />
+				<h1>hello world</h1>
+			</section>
+			<>hellow world</>
+		</>
 	);
 }
 
