@@ -57,6 +57,9 @@ export default {
 				950: '#FAE3CF',
 			},
 		},
+		fontFamily: {
+			modern: ['modern', 'sans'],
+		},
 	},
 	plugins: [],
 };
