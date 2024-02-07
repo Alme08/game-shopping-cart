@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: glacial;
+    src: url(../fonts/glacial-regular.otf);
+}
+@font-face {
+    font-family: modern;
+    src: url(../fonts/modern.otf);
+}
+
+@layer base {
+    html {
+        font-family: 'glacial', system-ui, sans-serif;
+    }
+}
