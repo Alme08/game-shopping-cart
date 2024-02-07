@@ -1,19 +1,48 @@
 import { CgMenu, CgClose, CgShoppingCart } from 'react-icons/cg';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Nav() {
 	const [isActive, setIsActive] = useState(false);
+	const [hoverValues, setHoverValues] = useState({
+		left: null,
+		top: null,
+		width: null,
+		height: null,
+		active: false,
+	});
 
 	const handleMenu = () => {
 		setIsActive(!isActive);
 	};
 
+	const mouseEnter = ({ target }) => {
+		const { left, top, width, height } = target.getBoundingClientRect();
+		console.log(left, top, width, height);
+		setHoverValues({
+			left: left,
+			top: top,
+			width: width,
+			height: height,
+			active: true,
+		});
+	};
+	const mouseLeave = () => {
+		setHoverValues({
+			active: false,
+			...setHoverValues,
+		});
+	};
+
 	const menuModal = (
-		<nav className='bg-firmament_blue-950 h-fit w-full py-5 px-8 text-autumn_white-950 absolute'>
+		<nav className='fixed top-0 bg-firmament_blue-950 h-fit w-full py-3 px-9 text-autumn_white-950'>
 			<div className='flex items-center justify-between text-2xl'>
-				<p className='text-2xl font-bold tracking-wide'>
+				<Link
+					to='/'
+					className='text-2xl font-bold tracking-wide cursor-pointer font-modern'
+				>
 					Bit<span className='text-atomic_orange-950'>Hub</span>
-				</p>
+				</Link>
 				<CgClose className='cursor-pointer' onClick={handleMenu} />
 			</div>
 			<div className='text-2xl flex flex-row-reverse mt-5'>
@@ -21,7 +50,7 @@ function Nav() {
 					<CgShoppingCart />
 				</span>
 			</div>
-			<ul className='flex flex-col mt-5 gap-4 text-lg'>
+			<ul className='flex flex-col my-5 gap-4 text-lg'>
 				<li className='bg-firmament_blue-900 py-3 px-5 rounded-xl cursor-pointer hover:bg-firmament_blue-800'>
 					Home
 				</li>
@@ -36,18 +65,56 @@ function Nav() {
 			{isActive ? (
 				menuModal
 			) : (
-				<nav className=' bg-firmament_blue-950 text-autumn_white-950 flex w-full justify-between items-center py-5 px-8 h-fit text-lg'>
-					<p className='text-2xl font-bold tracking-wide'>
-						Bit<span className='text-atomic_orange-950'>Hub</span>
-					</p>
-					<ul className='hidden sm:flex gap-10'>
-						<li className='hover:text-atomic_orange-950 transition-colors cursor-pointer'>
+				<nav className='fixed top-0 text-firmament_blue-950  flex w-full justify-between items-center py-3 px-9 h-fit text-lg'>
+					<div className='sm:flex sm:flex-grow sm:basis-0'>
+						<Link
+							to='/'
+							className='text-2xl font-bold tracking-wide cursor-pointer font-modern	'
+						>
+							Bit<span className='text-atomic_orange-950'>Hub</span>
+						</Link>
+					</div>
+
+					<ul
+						className='hidden sm:flex [&>li]:cursor-pointer [&>li]:px-6 [&>li]:py-2 
+					[&>li]:transition-colors [&>li]:tracking-wider'
+					>
+						<li
+							className=''
+							onMouseEnter={mouseEnter}
+							onMouseLeave={mouseLeave}
+						>
 							Home
 						</li>
-						<li className='hover:text-atomic_orange-950 transition-colors cursor-pointer'>
+						<li
+							className=''
+							onMouseEnter={mouseEnter}
+							onMouseLeave={mouseLeave}
+						>
 							Browse
 						</li>
+						<li onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+							blablablablablablabla
+						</li>
 					</ul>
+
+					<div className='sm:flex sm:flex-grow sm:basis-0 sm:justify-end'>
+						<span className='hidden sm:block p-3 rounded-full backdrop-blur-lg hover:bg-firmament_blue-950/10 transition-colors duration-300 delay-75 ease-in-out cursor-pointer'>
+							<CgShoppingCart className='text-2xl' />
+						</span>
+					</div>
+
+					<div
+						id='menu-backdrop'
+						className={`-z-10 absolute bg-firmament_blue-950 backdrop-blur-lg rounded transition-all duration-300 delay-75 ease-in-out 
+						${hoverValues.active === true ? 'opacity-10 visible' : 'opacity-0 invisible'}`}
+						style={{
+							width: `${hoverValues.width}px`,
+							height: `${hoverValues.height}px`,
+							top: `${hoverValues.top}px`,
+							left: `${hoverValues.left}px`,
+						}}
+					/>
 					<CgMenu
 						className='sm:hidden cursor-pointer text-2xl'
 						onClick={handleMenu}
