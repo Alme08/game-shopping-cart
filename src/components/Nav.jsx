@@ -1,16 +1,34 @@
 import { CgMenu, CgClose, CgShoppingCart } from 'react-icons/cg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Nav() {
 	const [isActive, setIsActive] = useState(false);
+	const [scrolling, setScrolling] = useState(false);
+	//hover active and hover values are separated to manage the delay animation accurately
+	const [isHoverActive, setIsHoverActive] = useState(false);
 	const [hoverValues, setHoverValues] = useState({
 		left: null,
 		top: null,
 		width: null,
 		height: null,
-		active: false,
 	});
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 10) {
+				setScrolling(true);
+			} else {
+				setScrolling(false);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
 	const handleMenu = () => {
 		setIsActive(!isActive);
@@ -18,20 +36,16 @@ function Nav() {
 
 	const mouseEnter = ({ target }) => {
 		const { left, top, width, height } = target.getBoundingClientRect();
-		console.log(left, top, width, height);
 		setHoverValues({
 			left: left,
 			top: top,
 			width: width,
 			height: height,
-			active: true,
 		});
+		setIsHoverActive(true);
 	};
 	const mouseLeave = () => {
-		setHoverValues({
-			active: false,
-			...setHoverValues,
-		});
+		setIsHoverActive(false);
 	};
 
 	const menuModal = (
@@ -65,7 +79,14 @@ function Nav() {
 			{isActive ? (
 				menuModal
 			) : (
-				<nav className='fixed top-0 text-firmament_blue-950  flex w-full justify-between items-center py-3 px-9 h-fit text-lg'>
+				<nav
+					className={`fixed top-0 flex w-full justify-between items-center py-3 px-9 h-fit text-lg transition-colors
+				${
+					scrolling
+						? 'text-autumn_white-50 bg-firmament_blue-950'
+						: 'text-firmament_blue-950'
+				}`}
+				>
 					<div className='sm:flex sm:flex-grow sm:basis-0'>
 						<Link
 							to='/'
@@ -76,43 +97,40 @@ function Nav() {
 					</div>
 
 					<ul
-						className='hidden sm:flex [&>li]:cursor-pointer [&>li]:px-6 [&>li]:py-2 
+						className='z-20 hidden sm:flex [&>li]:cursor-pointer [&>li]:px-6 [&>li]:py-2 
 					[&>li]:transition-colors [&>li]:tracking-wider'
 					>
-						<li
-							className=''
-							onMouseEnter={mouseEnter}
-							onMouseLeave={mouseLeave}
-						>
+						<li onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
 							Home
 						</li>
-						<li
-							className=''
-							onMouseEnter={mouseEnter}
-							onMouseLeave={mouseLeave}
-						>
-							Browse
-						</li>
 						<li onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
-							blablablablablablabla
+							Browse
 						</li>
 					</ul>
 
-					<div className='sm:flex sm:flex-grow sm:basis-0 sm:justify-end'>
-						<span className='hidden sm:block p-3 rounded-full backdrop-blur-lg hover:bg-firmament_blue-950/10 transition-colors duration-300 delay-75 ease-in-out cursor-pointer'>
+					<div className='z-10 sm:flex sm:flex-grow sm:basis-0 sm:justify-end'>
+						<span
+							className={`hidden sm:block p-3 rounded-full backdrop-blur-lg  transition-colors duration-300 delay-75 ease-in-out cursor-pointer
+						${
+							scrolling
+								? 'hover:bg-autumn_white-50/10'
+								: 'hover:bg-firmament_blue-950/10'
+						}`}
+						>
 							<CgShoppingCart className='text-2xl' />
 						</span>
 					</div>
 
 					<div
 						id='menu-backdrop'
-						className={`-z-10 absolute bg-firmament_blue-950 backdrop-blur-lg rounded transition-all duration-300 delay-75 ease-in-out 
-						${hoverValues.active === true ? 'opacity-10 visible' : 'opacity-0 invisible'}`}
+						className={` absolute  backdrop-blur-lg rounded transition-all duration-300 delay-75 ease-in-out
+						${isHoverActive ? 'opacity-10 visible' : 'opacity-0 invisible'}
+						${scrolling ? 'bg-autumn_white-50' : 'bg-firmament_blue-950'}`}
 						style={{
 							width: `${hoverValues.width}px`,
 							height: `${hoverValues.height}px`,
-							top: `${hoverValues.top}px`,
 							left: `${hoverValues.left}px`,
+							top: `${hoverValues.top}px`,
 						}}
 					/>
 					<CgMenu
