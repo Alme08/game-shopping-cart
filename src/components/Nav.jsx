@@ -86,7 +86,7 @@ function Nav() {
 				menuModal
 			) : (
 				<nav
-					className={`fixed top-0 flex w-full justify-between items-center py-3 px-9 h-fit text-lg transition-colors z-20 text-autumn_white-50
+					className={`fixed top-0 flex w-full justify-between items-center py-3 px-20 h-fit text-lg transition-colors z-20 text-autumn_white-50
 				${scrolling && ' bg-firmament_blue-950'}`}
 				>
 					<div className='sm:flex sm:flex-grow sm:basis-0'>
