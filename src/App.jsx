@@ -35,18 +35,18 @@ function App() {
 	}, []);
 
 	if (error) {
-		return <h1>error</h1>;
+		throw new Error(error);
 	}
 
 	return (
-		<>
+		<main className='bg-firmament_blue-950'>
 			<section className='h-screen'>
 				<Nav />
 				{loading && <CarouselPlaceholder />}
 				{!loading && <Carousel slides={data.results} />}
 			</section>
 			<>hello world</>
-		</>
+		</main>
 	);
 }
 
