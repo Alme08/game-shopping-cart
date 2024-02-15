@@ -65,12 +65,18 @@ function Nav() {
 				</span>
 			</div>
 			<ul className='flex flex-col my-5 gap-4 text-lg'>
-				<li className='bg-firmament_blue-900 py-3 px-5 rounded-xl cursor-pointer hover:bg-firmament_blue-800'>
+				<Link
+					to='/'
+					className='bg-firmament_blue-900 py-3 px-5 rounded-xl cursor-pointer hover:bg-firmament_blue-800'
+				>
 					Home
-				</li>
-				<li className='bg-firmament_blue-900 py-3 px-5 rounded-xl cursor-pointer hover:bg-firmament_blue-800'>
+				</Link>
+				<Link
+					to='browse'
+					className='bg-firmament_blue-900 py-3 px-5 rounded-xl cursor-pointer hover:bg-firmament_blue-800'
+				>
 					Browse
-				</li>
+				</Link>
 			</ul>
 		</nav>
 	);
@@ -80,12 +86,8 @@ function Nav() {
 				menuModal
 			) : (
 				<nav
-					className={`fixed top-0 flex w-full justify-between items-center py-3 px-9 h-fit text-lg transition-colors
-				${
-					scrolling
-						? 'text-autumn_white-50 bg-firmament_blue-950'
-						: 'text-firmament_blue-950'
-				}`}
+					className={`fixed top-0 flex w-full justify-between items-center py-3 px-9 h-fit text-lg transition-colors z-20 text-autumn_white-50
+				${scrolling && ' bg-firmament_blue-950'}`}
 				>
 					<div className='sm:flex sm:flex-grow sm:basis-0'>
 						<Link
@@ -97,15 +99,19 @@ function Nav() {
 					</div>
 
 					<ul
-						className='z-20 hidden sm:flex [&>li]:cursor-pointer [&>li]:px-6 [&>li]:py-2 
-					[&>li]:transition-colors [&>li]:tracking-wider'
+						className='z-20 hidden sm:flex [&>li]:cursor-pointer [&>*]:px-6 [&>*]:py-2 
+					[&>*]:transition-colors [&>*]:tracking-wider'
 					>
-						<li onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+						<Link to='/' onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
 							Home
-						</li>
-						<li onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+						</Link>
+						<Link
+							to='browse'
+							onMouseEnter={mouseEnter}
+							onMouseLeave={mouseLeave}
+						>
 							Browse
-						</li>
+						</Link>
 					</ul>
 
 					<div className='z-10 sm:flex sm:flex-grow sm:basis-0 sm:justify-end'>
