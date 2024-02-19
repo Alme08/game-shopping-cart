@@ -3,6 +3,7 @@ import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { FaComputer } from 'react-icons/fa6';
 import { FaPlaystation } from 'react-icons/fa';
 import { FaXbox } from 'react-icons/fa';
+import Button from './Button';
 
 function Carousel({ slides }) {
 	const [current, setCurrent] = useState(0);
@@ -62,13 +63,9 @@ function Carousel({ slides }) {
 						</div>
 					</div>
 
-					<div className=' mb-32 flex justify-center items-end gap-5 [&>a]:bg-gradient-to-br [&>a]:px-12 [&>a]:py-2 [&>a]:font-modern [&>a]:rounded-md [&>a]:h-min [&>a]:cursor-pointer'>
-						<a className='from-firmament_blue-700 to-firmament_blue-950'>
-							Details
-						</a>
-						<a className='from-atomic_orange-700 to-atomic_orange-950'>
-							Buy Now
-						</a>
+					<div className='mb-32 flex justify-center items-end gap-5'>
+						<Button text='details' />
+						<Button text='Buy Now' primary={true} />
 					</div>
 				</div>
 				<button className='bg-gradient-to-l' onClick={nextSlide}>
