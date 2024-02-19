@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { FaComputer } from 'react-icons/fa6';
-import { FaPlaystation } from 'react-icons/fa';
-import { FaXbox } from 'react-icons/fa';
+import { FaPlaystation, FaXbox } from 'react-icons/fa';
 import Button from './Button';
+import PropTypes from 'prop-types';
 
 function Carousel({ slides }) {
 	const [current, setCurrent] = useState(0);
@@ -91,4 +91,7 @@ function Carousel({ slides }) {
 	);
 }
 
+Carousel.propTypes = {
+	slides: PropTypes.array,
+};
 export default Carousel;
