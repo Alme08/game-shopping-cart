@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Carousel from './components/Carousel';
 import Nav from './components/Nav';
 import CarouselPlaceholder from './components/CarouselPlaceholder';
-import Button from './components/Button';
+import Trending from './components/trending';
 
 function App() {
 	const [data, setData] = useState();
@@ -12,17 +12,23 @@ function App() {
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				const response = await fetch(
-					`https://api.rawg.io/api/games?key=${
-						import.meta.env.VITE_API_KEY
-					}&page_size=10&dates=2024-01-01,2024-02-10&ordering=-rating`
+				const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
+				const responses = await Promise.all([
+					fetch(
+						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=10&dates=2024-01-01,2024-02-10&ordering=-rating`
+					),
+					fetch(
+						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=1&dates=2024-02-01,2024-02-15&ordering=-added`
+					),
+				]);
+				responses.forEach(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error: The status is ${response.status}`);
+					}
+				});
+				let data = await Promise.all(
+					responses.map(response => response.json())
 				);
-				if (!response.ok) {
-					throw new Error(
-						`This is an HTTP error: The status is ${response.status}`
-					);
-				}
-				let data = await response.json();
 				setData(data);
 				setError(null);
 			} catch (error) {
@@ -40,25 +46,14 @@ function App() {
 	}
 
 	return (
-		<div className='bg-firmament_blue-950'>
+		<div className='bg-firmament_blue-950 flex flex-col gap-12'>
 			<header className='h-screen'>
 				<Nav />
 				{loading && <CarouselPlaceholder />}
-				{!loading && <Carousel slides={data.results} />}
+				{!loading && <Carousel slides={data[0].results} />}
 			</header>
 			<main className='text-atomic_orange-50 px-20'>
-				<section>
-					<div className='flex items-center justify-between py-10'>
-						<h2 className='font-modern text-4xl'>
-							Trending <span className='text-atomic_orange-950'>Now!</span>
-						</h2>
-						<Button text={'View all'} primary={true} />
-					</div>
-					<div className='flex gap-5'>
-						<div className='w-full aspect-video bg-demonic_red-950'></div>
-						<div className='w-full'></div>
-					</div>
-				</section>
+				{!loading && <Trending game={data[1].results} />}
 			</main>
 		</div>
 	);
