@@ -20,7 +20,7 @@ function Card({ game }) {
 					})}
 				</p>
 				<h3 className='text-xl font-bold'>{name}</h3>
-				<p className='text-sm'>
+				<p className='text-sm text-autumn_white-50/80'>
 					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae
 					deserunt quo natus officiis sequi architecto...
 				</p>
