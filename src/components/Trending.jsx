@@ -27,7 +27,7 @@ function Trending({ game }) {
 				</div>
 				<div className='w-full flex flex-col justify-between py-3'>
 					<div className='flex flex-col gap-5'>
-						<p className='text-xl'>
+						<p className='text-xl text-autumn_white-50/80'>
 							<span className='text-atomic_orange-950'>Genre: </span>
 							{genres.map((genre, index) => {
 								return index === genres.length - 1
@@ -37,7 +37,7 @@ function Trending({ game }) {
 						</p>
 						<p className='text-5xl font-bold'>{name}</p>
 						<StarRating rating={rating} ratings_count={ratings_count} />
-						<p className='text-4xl'>
+						<p className='text-4xl font-bold'>
 							<span className='text-atomic_orange-950 text-base pr-4'>
 								$60.00
 							</span>
