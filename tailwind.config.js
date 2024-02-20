@@ -2,7 +2,11 @@
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			boxShadow: {
+				custom: '0px 0px 15px 0px #FA8603',
+			},
+		},
 		colors: {
 			firmament_blue: {
 				50: '#DBE0F5',
