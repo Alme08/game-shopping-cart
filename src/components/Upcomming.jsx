@@ -1,32 +1,30 @@
 import Card from './Card';
+import PropTypes from 'prop-types';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+//swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/pagination';
 
 function Upcomming({ games }) {
 	return (
 		<section>
-			<h2 className='font-modern text-4xl'>
+			<h2 className='font-modern text-4xl pb-8'>
 				Up<span className='text-atomic_orange-950'>comming</span>
 			</h2>
 			<div
-				className='relative flex items-center text-3xl px-10 
+				className='relative flex items-center text-3xl px-20 
             [&>button]:px-2 [&>button]:from-atomic_orange-700 [&>button]:to-atomic_orange-950 [&>button]:rounded-md [&>button]:absolute [&>button]:z-10'
 			>
 				<button className='bg-gradient-to-r swiper-button-prev -left-10'>
 					<IoIosArrowBack />
 				</button>
 				<Swiper
-					modules={[Pagination, Autoplay, Navigation]}
+					loop={true}
+					modules={[Autoplay, Navigation]}
 					autoplay={{
 						delay: 3000,
 						disableOnInteraction: false,
-					}}
-					pagination={{
-						el: '.pagination',
-						clickable: true,
 					}}
 					navigation={{
 						nextEl: '.swiper-button-next',
@@ -51,11 +49,11 @@ function Upcomming({ games }) {
 						},
 						'@1.50': {
 							slidesPerView: 3,
-							spaceBetween: 30,
+							spaceBetween: 10,
 						},
 						'@1.75': {
 							slidesPerView: 3,
-							spaceBetween: 20,
+							spaceBetween: 10,
 						},
 					}}
 				>
@@ -73,9 +71,12 @@ function Upcomming({ games }) {
 					<IoIosArrowForward />
 				</button>
 			</div>
-			<div className='pagination' />
 		</section>
 	);
 }
+
+Upcomming.propTypes = {
+	games: PropTypes.array,
+};
 
 export default Upcomming;
