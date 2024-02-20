@@ -18,7 +18,7 @@ const StarRating = ({ rating, ratings_count }) => {
 								? 'text-atomic_orange-950'
 								: hasHalfStar && index === filledStars
 								? 'text-atomic_orange-950'
-								: 'text-autumn_white-50'
+								: 'text-autumn_white-50/80'
 						}`}
 					>
 						{index < filledStars ? (
@@ -31,7 +31,7 @@ const StarRating = ({ rating, ratings_count }) => {
 					</span>
 				))}
 			</div>
-			<p>({ratings_count} reviews)</p>
+			<p className='text-autumn_white-50/80'>({ratings_count} reviews)</p>
 		</div>
 	);
 };
