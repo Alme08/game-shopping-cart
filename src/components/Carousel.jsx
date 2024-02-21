@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import Button from './Button';
+import PropTypes from 'prop-types';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { FaComputer } from 'react-icons/fa6';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';
-import Button from './Button';
-import PropTypes from 'prop-types';
 //swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
@@ -12,29 +12,27 @@ import 'swiper/css';
 function Carousel({ slides }) {
 	const [current, setCurrent] = useState(0);
 	let currentSvgs = [];
+	const swiperConfig = {
+		className: 'h-screen',
+		slidesPerView: 1,
+		loop: true,
+		modules: [Autoplay, Navigation, Pagination],
+		autoplay: { delay: 3000, disableOnInteraction: false },
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+		pagination: {
+			el: '.swiper-pagination',
+			horizontalClass: '.swiper-pagination',
+			clickable: true,
+		},
+		onSlideChange: swiper => setCurrent(swiper.realIndex),
+	};
 
 	return (
 		<section className='h-screen'>
-			<Swiper
-				className='h-screen'
-				slidesPerView={1}
-				loop={true}
-				modules={[Autoplay, Navigation, Pagination]}
-				autoplay={{
-					delay: 3000,
-					disableOnInteraction: false,
-				}}
-				navigation={{
-					nextEl: '.swiper-button-next',
-					prevEl: '.swiper-button-prev',
-				}}
-				pagination={{
-					el: '.swiper-pagination',
-					horizontalClass: '.swiper-pagination',
-					clickable: true,
-				}}
-				onSlideChange={swiper => setCurrent(swiper.realIndex)}
-			>
+			<Swiper {...swiperConfig}>
 				{slides.map((s, index) => {
 					return (
 						<SwiperSlide key={s.id} className='h-full'>
@@ -56,20 +54,21 @@ function Carousel({ slides }) {
 						<h2 className='font-modern text-5xl'>{slides[current].name}</h2>
 						<div className='flex gap-5 justify-center text-4xl'>
 							{slides[current].platforms.map(platform => {
+								const platformName = platform.platform.name;
 								if (
-									platform.platform.name.includes('PC') &&
+									platformName.includes('PC') &&
 									!currentSvgs.includes('PC')
 								) {
 									currentSvgs.push('PC');
 									return <FaComputer key={platform.platform.id} />;
 								} else if (
-									platform.platform.name.includes('PlayStation') &&
+									platformName.includes('PlayStation') &&
 									!currentSvgs.includes('PlayStation')
 								) {
 									currentSvgs.push('PlayStation');
 									return <FaPlaystation key={platform.platform.id} />;
 								} else if (
-									platform.platform.name.includes('Xbox') &&
+									platformName.includes('Xbox') &&
 									!currentSvgs.includes('Xbox')
 								) {
 									currentSvgs.push('Xbox');
@@ -96,6 +95,7 @@ function Carousel({ slides }) {
 			   [&>*]:rounded-full
 			   [&>*]:opacity-100
 			   [&>*]:bottom-0
+			   [&>*]:cursor-pointer
 			   [&>.swiper-pagination-bullet-active]:bg-atomic_orange-950
 			   [&>.swiper-pagination-bullet-active]:w-5'
 			></div>
