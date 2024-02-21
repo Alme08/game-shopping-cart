@@ -1,65 +1,81 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { FaComputer } from 'react-icons/fa6';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';
 import Button from './Button';
 import PropTypes from 'prop-types';
+//swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
 
 function Carousel({ slides }) {
 	const [current, setCurrent] = useState(0);
-
-	const previousSlide = () => {
-		setCurrent(prevCurrent =>
-			prevCurrent === 0 ? slides.length - 1 : prevCurrent - 1
-		);
-	};
-	const nextSlide = useCallback(() => {
-		setCurrent(prevCurrent =>
-			prevCurrent === slides.length - 1 ? 0 : prevCurrent + 1
-		);
-	}, [slides.length]);
-
-	useEffect(() => {
-		const intervalId = setInterval(() => {
-			nextSlide();
-		}, 5000);
-
-		return () => {
-			clearInterval(intervalId);
-		};
-	}, [current, nextSlide]);
+	let currentSvgs = [];
 
 	return (
-		<div className='overflow-hidden relative h-screen'>
-			<div
-				className='flex transition ease-out duration-300 h-screen'
-				style={{
-					transform: `translateX(-${current * 100}%)`,
+		<section className='h-screen'>
+			<Swiper
+				className='h-screen'
+				slidesPerView={1}
+				loop={true}
+				modules={[Autoplay, Navigation, Pagination]}
+				autoplay={{
+					delay: 3000,
+					disableOnInteraction: false,
 				}}
+				navigation={{
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				}}
+				pagination={{
+					el: '.swiper-pagination',
+					horizontalClass: '.swiper-pagination',
+					clickable: true,
+				}}
+				onSlideChange={swiper => setCurrent(swiper.realIndex)}
 			>
 				{slides.map((s, index) => {
 					return (
-						<img
-							key={'image' + index}
-							className='object-cover min-w-full min-h-full h-full'
-							src={s.background_image}
-							alt={`slide-${index}`}
-						/>
+						<SwiperSlide key={s.id} className='h-full'>
+							<img
+								className='object-cover min-w-full min-h-full h-full opacity-60'
+								src={s.background_image}
+								alt={`slide-${index}`}
+							/>
+						</SwiperSlide>
 					);
 				})}
-			</div>
-			<div className='absolute bg-firmament_blue-950/50 top-0 h-full w-full z-0' />
+			</Swiper>
 			<div className='absolute top-0 h-full w-full justify-between items-center flex text-autumn_white-50 px-10 text-3xl z-10 [&>button]:px-2 [&>button]:from-atomic_orange-700 [&>button]:to-atomic_orange-950 [&>button]:rounded-md'>
-				<button className='bg-gradient-to-r' onClick={previousSlide}>
+				<button className='bg-gradient-to-r swiper-button-prev'>
 					<IoIosArrowBack />
 				</button>
 				<div className='text-center text-autumn_white-50 flex flex-col justify-end h-full gap-28'>
 					<div className='flex flex-col gap-12'>
 						<h2 className='font-modern text-5xl'>{slides[current].name}</h2>
 						<div className='flex gap-5 justify-center text-4xl'>
-							<FaComputer />
-							<FaXbox />
-							<FaPlaystation />
+							{slides[current].platforms.map(platform => {
+								if (
+									platform.platform.name.includes('PC') &&
+									!currentSvgs.includes('PC')
+								) {
+									currentSvgs.push('PC');
+									return <FaComputer key={platform.platform.id} />;
+								} else if (
+									platform.platform.name.includes('PlayStation') &&
+									!currentSvgs.includes('PlayStation')
+								) {
+									currentSvgs.push('PlayStation');
+									return <FaPlaystation key={platform.platform.id} />;
+								} else if (
+									platform.platform.name.includes('Xbox') &&
+									!currentSvgs.includes('Xbox')
+								) {
+									currentSvgs.push('Xbox');
+									return <FaXbox key={platform.platform.id} />;
+								}
+							})}
 						</div>
 					</div>
 
@@ -68,26 +84,22 @@ function Carousel({ slides }) {
 						<Button text='Buy Now' primary={true} />
 					</div>
 				</div>
-				<button className='bg-gradient-to-l' onClick={nextSlide}>
+				<button className='bg-gradient-to-l swiper-button-next'>
 					<IoIosArrowForward />
 				</button>
 			</div>
-			<div className='absolute bottom-0 py-4 flex justify-center gap-10 w-full z-10 '>
-				{slides.map((slide, index) => {
-					return (
-						<div
-							key={'circle' + index}
-							onClick={() => setCurrent(index)}
-							className={`transition-all ease-in-out duration-300 rounded-full h-3 cursor-pointer ${
-								current === index
-									? 'bg-atomic_orange-950 w-5'
-									: 'bg-autumn_white-50 w-3'
-							}`}
-						></div>
-					);
-				})}
-			</div>
-		</div>
+			<div
+				className='swiper-pagination absolute bottom-0 py-4 flex justify-center gap-10 w-full z-10
+			 [&>*]:bg-autumn_white-50
+			  [&>*]:h-3
+			   [&>*]:w-3
+			   [&>*]:rounded-full
+			   [&>*]:opacity-100
+			   [&>*]:bottom-0
+			   [&>.swiper-pagination-bullet-active]:bg-atomic_orange-950
+			   [&>.swiper-pagination-bullet-active]:w-5'
+			></div>
+		</section>
 	);
 }
 
