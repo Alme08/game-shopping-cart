@@ -8,9 +8,11 @@ import {
 } from 'date-fns';
 import Carousel from './components/Carousel';
 import Nav from './components/Nav';
-import CarouselPlaceholder from './components/CarouselPlaceholder';
+import CarouselPlaceholder from './components/Placeholder/CarouselPlaceholder';
 import Trending from './components/trending';
 import Upcoming from './components/Upcoming';
+import TrendingPlaceholder from './components/Placeholder/TrendingPlaceholder';
+import UpcomingPlaceholder from './components/Placeholder/UpcomingPlaceholder';
 
 function App() {
 	const [data, setData] = useState();
@@ -73,7 +75,9 @@ function App() {
 				{!loading && <Carousel slides={carouselData} />}
 			</header>
 			<main className='text-atomic_orange-50 px-20 flex flex-col gap-14 py-14'>
+				{loading && <TrendingPlaceholder />}
 				{!loading && <Trending game={trendingData} />}
+				{loading && <UpcomingPlaceholder />}
 				{!loading && <Upcoming games={upcomingData} />}
 			</main>
 		</div>
