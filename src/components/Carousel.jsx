@@ -51,7 +51,9 @@ function Carousel({ slides }) {
 				</button>
 				<div className='text-center text-autumn_white-50 flex flex-col justify-end h-full gap-28'>
 					<div className='flex flex-col gap-12'>
-						<h2 className='font-modern text-5xl'>{slides[current].name}</h2>
+						<h2 className='font-modern text-5xl'>
+							<i>{slides[current].name}</i>
+						</h2>
 						<div className='flex gap-5 justify-center text-4xl'>
 							{slides[current].platforms.map(platform => {
 								const platformName = platform.platform.name;
