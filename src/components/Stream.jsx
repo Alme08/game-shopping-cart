@@ -4,9 +4,8 @@ import { FaPlay } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
 function Stream({ game }) {
-	console.log(game);
 	return (
-		<div className='px-20 w-full relative '>
+		<div className='px-16 w-full relative '>
 			<img
 				className='opacity-60 rounded-xl'
 				src={game.short_screenshots[1].image}
