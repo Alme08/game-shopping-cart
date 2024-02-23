@@ -75,7 +75,7 @@ function App() {
 				{loading && <CarouselPlaceholder />}
 				{!loading && <Carousel slides={carouselData} />}
 			</header>
-			<main className='text-atomic_orange-50 px-20 flex flex-col gap-14 py-14'>
+			<main className='text-autumn_white-50 px-20 flex flex-col gap-14 py-14'>
 				{loading && <TrendingPlaceholder />}
 				{!loading && <Trending game={trendingData} />}
 				{loading && <UpcomingPlaceholder />}
