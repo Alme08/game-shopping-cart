@@ -31,7 +31,9 @@ const StarRating = ({ rating, ratings_count }) => {
 					</span>
 				))}
 			</div>
-			<p className='text-autumn_white-50/80'>({ratings_count} reviews)</p>
+			{ratings_count && (
+				<p className='text-autumn_white-50/80'>({ratings_count} reviews)</p>
+			)}
 		</div>
 	);
 };
