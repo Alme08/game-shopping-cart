@@ -13,7 +13,7 @@ function Upcoming({ games }) {
 				Up<span className='text-atomic_orange-950'>coming</span>
 			</h2>
 			<div
-				className='relative flex items-center text-3xl px-20 
+				className='relative flex justify-between items-center text-3xl px-20 
             [&>button]:px-2 [&>button]:from-atomic_orange-700 [&>button]:to-atomic_orange-950 [&>button]:rounded-md [&>button]:absolute [&>button]:z-10'
 			>
 				<button className='bg-gradient-to-r swiper-button-prev -left-10'>
@@ -30,34 +30,37 @@ function Upcoming({ games }) {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
 					}}
-					breakpoints={{
-						'@0.00': {
-							slidesPerView: 1,
-							spaceBetween: 25,
-						},
-						'@0.50': {
-							slidesPerView: 1.25,
-							spaceBetween: 25,
-						},
-						'@1.00': {
-							slidesPerView: 2,
-							spaceBetween: 25,
-						},
-						'@1.25': {
-							slidesPerView: 2.5,
-							spaceBetween: 20,
-						},
-						'@1.50': {
-							slidesPerView: 3,
-							spaceBetween: 10,
-						},
-						'@1.75': {
-							slidesPerView: 3,
-							spaceBetween: 10,
-						},
-					}}
+					slidesPerView={3}
+					spaceBetween={60}
+					centeredSlides={true}
+					// breakpoints={{
+					// 	'@0.00': {
+					// 		slidesPerView: 1,
+					// 		spaceBetween: 25,
+					// 	},
+					// 	'@0.50': {
+					// 		slidesPerView: 1.25,
+					// 		spaceBetween: 25,
+					// 	},
+					// 	'@1.00': {
+					// 		slidesPerView: 2,
+					// 		spaceBetween: 25,
+					// 	},
+					// 	'@1.25': {
+					// 		slidesPerView: 2.5,
+					// 		spaceBetween: 20,
+					// 	},
+					// 	'@1.50': {
+					// 		slidesPerView: 3,
+					// 		spaceBetween: 0,
+					// 	},
+					// 	'@1.75': {
+					// 		slidesPerView: 3,
+					// 		spaceBetween: 0,
+					// 	},
+					// }}
 				>
-					<div className='px-10'>
+					<div>
 						{games.map(game => {
 							return (
 								<SwiperSlide key={game.id}>
