@@ -13,6 +13,7 @@ import Trending from './components/trending';
 import Upcoming from './components/Upcoming';
 import TrendingPlaceholder from './components/Placeholder/TrendingPlaceholder';
 import UpcomingPlaceholder from './components/Placeholder/UpcomingPlaceholder';
+import Stream from './components/Stream';
 
 function App() {
 	const [data, setData] = useState();
@@ -31,13 +32,13 @@ function App() {
 
 				const responses = await Promise.all([
 					fetch(
-						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=10&dates=${startYear},${today}&ordering=-rating`
+						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=10&dates=${startYear},${today}&ordering=-rating` //the highest rated games from the current year
 					),
 					fetch(
-						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=1&dates=${startMonth},${today}&ordering=-added`
+						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=1&dates=${startMonth},${today}&ordering=-added` //the most popular game from the current month
 					),
 					fetch(
-						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=9&dates=${tomorrow},${endYear}&ordering=-added`
+						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=9&dates=${tomorrow},${endYear}&ordering=-added` //the most anticipated upcoming games from the current year
 					),
 				]);
 				responses.forEach(response => {
@@ -79,6 +80,7 @@ function App() {
 				{!loading && <Trending game={trendingData} />}
 				{loading && <UpcomingPlaceholder />}
 				{!loading && <Upcoming games={upcomingData} />}
+				{!loading && <Stream game={carouselData[0]} />}
 			</main>
 		</div>
 	);
