@@ -88,7 +88,7 @@ function App() {
 				{!loading && <Upcoming games={upcomingData} />}
 				{!loading && <Stream game={carouselData[0]} />}
 				{!loading && <BestSeller games={trendingData} />}
-				<Reviews />
+				{!loading && <Reviews game={trendingData[0]} />}
 			</main>
 		</div>
 	);
