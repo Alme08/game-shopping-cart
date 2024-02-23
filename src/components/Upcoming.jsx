@@ -8,7 +8,7 @@ import 'swiper/css';
 
 function Upcoming({ games }) {
 	return (
-		<section>
+		<section className='px-20'>
 			<h2 className='font-modern text-4xl pb-8'>
 				Up<span className='text-atomic_orange-950'>coming</span>
 			</h2>

@@ -5,7 +5,7 @@ import StarRating from './Stars';
 function Trending({ game }) {
 	const { name, background_image, rating, ratings_count, genres } = game[0];
 	return (
-		<section>
+		<section className='px-20'>
 			<div className='flex items-center justify-between pb-8'>
 				<h2 className='font-modern text-4xl'>
 					Trending <span className='text-atomic_orange-950'>Now!</span>

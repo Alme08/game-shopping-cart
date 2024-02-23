@@ -3,7 +3,7 @@ import Card from './Card';
 import Button from './Button';
 function BestSeller({ games }) {
 	return (
-		<section>
+		<section className='px-20'>
 			<h2 className='font-modern text-4xl pb-8'>
 				Best <span className='text-atomic_orange-950'>Seller</span>
 			</h2>

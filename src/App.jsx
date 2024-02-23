@@ -16,6 +16,7 @@ import TrendingPlaceholder from './components/Placeholder/TrendingPlaceholder';
 import UpcomingPlaceholder from './components/Placeholder/UpcomingPlaceholder';
 import Stream from './components/Stream';
 import BestSeller from './components/BestSeller';
+import Reviews from './components/Reviews';
 
 function App() {
 	const [data, setData] = useState();
@@ -80,13 +81,14 @@ function App() {
 				{loading && <CarouselPlaceholder />}
 				{!loading && <Carousel slides={carouselData} />}
 			</header>
-			<main className='text-autumn_white-50 px-20 flex flex-col gap-14 py-14'>
+			<main className='text-autumn_white-50 flex flex-col gap-14 py-14'>
 				{loading && <TrendingPlaceholder />}
 				{!loading && <Trending game={trendingData} />}
 				{loading && <UpcomingPlaceholder />}
 				{!loading && <Upcoming games={upcomingData} />}
 				{!loading && <Stream game={carouselData[0]} />}
 				{!loading && <BestSeller games={trendingData} />}
+				<Reviews />
 			</main>
 		</div>
 	);
