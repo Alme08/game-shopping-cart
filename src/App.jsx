@@ -3,7 +3,8 @@ import {
 	startOfYear,
 	endOfYear,
 	startOfMonth,
-	addDays,
+	subMonths,
+	nextDay,
 	format,
 } from 'date-fns';
 import Carousel from './components/Carousel';
@@ -14,6 +15,7 @@ import Upcoming from './components/Upcoming';
 import TrendingPlaceholder from './components/Placeholder/TrendingPlaceholder';
 import UpcomingPlaceholder from './components/Placeholder/UpcomingPlaceholder';
 import Stream from './components/Stream';
+import BestSeller from './components/BestSeller';
 
 function App() {
 	const [data, setData] = useState();
@@ -25,17 +27,20 @@ function App() {
 			try {
 				const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 				const today = format(new Date(), 'yyyy-MM-dd');
-				const tomorrow = format(addDays(new Date(), 1), 'yyyy-MM-dd');
+				const tomorrow = format(nextDay(new Date(), 1), 'yyyy-MM-dd');
 				const startYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
 				const endYear = format(endOfYear(new Date()), 'yyyy-MM-dd');
-				const startMonth = format(startOfMonth(new Date()), 'yyyy-MM-dd');
+				const startPastMonth = format(
+					startOfMonth(subMonths(new Date(), 1)),
+					'yyyy-MM-dd'
+				);
 
 				const responses = await Promise.all([
 					fetch(
 						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=10&dates=${startYear},${today}&ordering=-rating` //the highest rated games from the current year
 					),
 					fetch(
-						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=1&dates=${startMonth},${today}&ordering=-added` //the most popular game from the current month
+						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=7&dates=${startPastMonth},${today}&ordering=-added` //the 7 most popular games from the past 2 months
 					),
 					fetch(
 						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=9&dates=${tomorrow},${endYear}&ordering=-added` //the most anticipated upcoming games from the current year
@@ -81,6 +86,7 @@ function App() {
 				{loading && <UpcomingPlaceholder />}
 				{!loading && <Upcoming games={upcomingData} />}
 				{!loading && <Stream game={carouselData[0]} />}
+				{!loading && <BestSeller games={trendingData} />}
 			</main>
 		</div>
 	);
