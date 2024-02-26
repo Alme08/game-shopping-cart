@@ -18,6 +18,7 @@ import Stream from './components/Stream';
 import BestSeller from './components/BestSeller';
 import Reviews from './components/Reviews';
 import Blogs from './components/Blogs';
+import Counter from './components/Counter';
 
 function App() {
 	const [data, setData] = useState();
@@ -47,6 +48,9 @@ function App() {
 					fetch(
 						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=9&dates=${tomorrow},${endYear}&ordering=-added` //the most anticipated upcoming games from the current year
 					),
+					fetch(
+						`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=1&dates=${tomorrow},${endYear}&ordering=released` //the next game to be released
+					),
 				]);
 				responses.forEach(response => {
 					if (!response.ok) {
@@ -75,6 +79,7 @@ function App() {
 	const carouselData = data && data[0]?.results;
 	const trendingData = data && data[1]?.results;
 	const upcomingData = data && data[2]?.results;
+	const counterData = data && data[3]?.results;
 	return (
 		<div className='bg-firmament_blue-950'>
 			<header className='h-screen'>
@@ -91,6 +96,7 @@ function App() {
 				{!loading && <BestSeller games={trendingData} />}
 				{!loading && <Reviews game={trendingData[0]} />}
 				<Blogs />
+				{!loading && <Counter game={counterData} />}
 			</main>
 		</div>
 	);
