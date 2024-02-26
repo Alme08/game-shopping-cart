@@ -17,6 +17,7 @@ import UpcomingPlaceholder from './components/Placeholder/UpcomingPlaceholder';
 import Stream from './components/Stream';
 import BestSeller from './components/BestSeller';
 import Reviews from './components/Reviews';
+import Blogs from './components/Blogs';
 
 function App() {
 	const [data, setData] = useState();
@@ -89,6 +90,7 @@ function App() {
 				{!loading && <Stream game={carouselData[0]} />}
 				{!loading && <BestSeller games={trendingData} />}
 				{!loading && <Reviews game={trendingData[0]} />}
+				<Blogs />
 			</main>
 		</div>
 	);
