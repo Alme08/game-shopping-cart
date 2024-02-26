@@ -12,7 +12,7 @@ function Stream({ game }) {
 				alt=''
 			/>
 			<div className='absolute top-0 left-2/4 -translate-x-1/2 flex flex-col justify-between items-center h-full'>
-				<div className='flex flex-col items-center pt-10'>
+				<div className='flex flex-col items-center pt-10 text-center'>
 					<h3 className='font-modern text-6xl'>
 						<i>{game.name}</i>
 					</h3>
