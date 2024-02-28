@@ -21,8 +21,6 @@ function Button({ text, primary, fontSize }) {
 Button.propTypes = {
 	text: PropTypes.string,
 	primary: PropTypes.bool,
-	px: PropTypes.number,
-	py: PropTypes.number,
 	fontSize: PropTypes.number,
 };
 
