@@ -20,6 +20,7 @@ import Reviews from './components/Reviews';
 import Blogs from './components/Blogs';
 import Counter from './components/Counter';
 import Contact from './components/Contact';
+import Footer from './components/footer';
 
 function App() {
 	const [data, setData] = useState();
@@ -97,6 +98,9 @@ function App() {
 				{!loading && <Counter game={counterData} />}
 				<Contact />
 			</main>
+			<footer>
+				<Footer />
+			</footer>
 		</div>
 	);
 }
