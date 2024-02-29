@@ -1,9 +1,44 @@
+import { useEffect, useState } from 'react';
 import Button from './Button';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
 function Counter({ game }) {
 	const { background_image, slug, name, released } = game[0];
+
+	const [remainingTime, setRemainingTime] = useState({
+		days: 0,
+		hours: 0,
+		minutes: 0,
+		seconds: 0,
+	});
+
+	useEffect(() => {
+		const timer = setInterval(() => {
+			const currentDate = new Date();
+			const releaseDate = new Date(released);
+			const newRemainingTime = releaseDate.getTime() - currentDate.getTime();
+
+			const newDays = Math.floor(newRemainingTime / (1000 * 60 * 60 * 24));
+			const newHours = Math.floor(
+				(newRemainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+			);
+			const newMinutes = Math.floor(
+				(newRemainingTime % (1000 * 60 * 60)) / (1000 * 60)
+			);
+			const newSeconds = Math.floor((newRemainingTime % (1000 * 60)) / 1000);
+
+			setRemainingTime({
+				days: newDays,
+				hours: newHours,
+				minutes: newMinutes,
+				seconds: newSeconds,
+			});
+		}, 1000);
+
+		return () => clearInterval(timer);
+	}, [released]);
+
 	return (
 		<section className={`h-[40rem] overflow-hidden relative`}>
 			<img src={background_image} alt={slug} className='w-full' />
@@ -22,21 +57,21 @@ function Counter({ game }) {
 					<Button text={'details'} />
 					<Button text={'pre-order'} primary={true} />
 				</div>
-				<div className='flex gap-10 [&>div]:flex [&>div]:flex-col [&>div]:items-center [&>div>span]:bg-atomic_orange-950 [&>div>span]:p-3 [&>div>span]:text-5xl [&>div>span]:font-bold [&>div>span]:rounded-md [&>div>p]:font-3xl'>
+				<div className='flex gap-10 [&>div]:flex [&>div]:flex-col [&>div]:items-center [&>div>span]:bg-atomic_orange-950 [&>div>span]:w-16 [&>div>span]:h-16 [&>div>span]:flex [&>div>span]:justify-center [&>div>span]:items-center [&>div>span]:text-5xl [&>div>span]:font-bold [&>div>span]:rounded-md [&>div>p]:font-3xl'>
 					<div>
-						<span>00</span>
+						<span>{remainingTime.days}</span>
 						<p>Days</p>
 					</div>
 					<div>
-						<span>12</span>
+						<span>{remainingTime.hours}</span>
 						<p>Hours</p>
 					</div>
 					<div>
-						<span>57</span>
+						<span>{remainingTime.minutes}</span>
 						<p>Minutes</p>
 					</div>
 					<div>
-						<span>37</span>
+						<span>{remainingTime.seconds}</span>
 						<p>Seconds</p>
 					</div>
 				</div>
