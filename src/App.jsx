@@ -84,14 +84,11 @@ function App() {
 		<div className='bg-firmament_blue-950'>
 			<header className='h-screen'>
 				<Nav />
-				{loading && <CarouselPlaceholder />}
-				{!loading && <Carousel slides={carouselData} />}
+				{loading ? <CarouselPlaceholder /> : <Carousel slides={carouselData} />}
 			</header>
 			<main className='text-autumn_white-50 flex flex-col gap-14 py-14'>
-				{loading && <TrendingPlaceholder />}
-				{!loading && <Trending game={trendingData} />}
-				{loading && <UpcomingPlaceholder />}
-				{!loading && <Upcoming games={upcomingData} />}
+				{loading ? <TrendingPlaceholder /> : <Trending game={trendingData} />}
+				{loading ? <UpcomingPlaceholder /> : <Upcoming games={upcomingData} />}
 				{!loading && <Stream game={carouselData[0]} />}
 				{!loading && <BestSeller games={trendingData} />}
 				{!loading && <Reviews game={trendingData[0]} />}
