@@ -19,6 +19,7 @@ import BestSeller from './components/BestSeller';
 import Reviews from './components/Reviews';
 import Blogs from './components/Blogs';
 import Counter from './components/Counter';
+import Contact from './components/Contact';
 
 function App() {
 	const [data, setData] = useState();
@@ -94,6 +95,7 @@ function App() {
 				{!loading && <Reviews game={trendingData[0]} />}
 				<Blogs />
 				{!loading && <Counter game={counterData} />}
+				<Contact />
 			</main>
 		</div>
 	);
