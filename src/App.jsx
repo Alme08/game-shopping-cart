@@ -9,11 +9,8 @@ import {
 } from 'date-fns';
 import Carousel from './components/Carousel';
 import Nav from './components/Nav';
-import CarouselPlaceholder from './components/Placeholder/CarouselPlaceholder';
 import Trending from './components/trending';
 import Upcoming from './components/Upcoming';
-import TrendingPlaceholder from './components/Placeholder/TrendingPlaceholder';
-import UpcomingPlaceholder from './components/Placeholder/UpcomingPlaceholder';
 import Stream from './components/Stream';
 import BestSeller from './components/BestSeller';
 import Reviews from './components/Reviews';
@@ -21,7 +18,7 @@ import Blogs from './components/Blogs';
 import Counter from './components/Counter';
 import Contact from './components/Contact';
 import Footer from './components/footer';
-import StreamPlaceholder from './components/Placeholder/StreamPlaceholder';
+import { Oval } from 'react-loader-spinner';
 
 function App() {
 	const [data, setData] = useState();
@@ -31,6 +28,7 @@ function App() {
 	useEffect(() => {
 		const getData = async () => {
 			try {
+				setLoading(true);
 				const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 				const today = format(new Date(), 'yyyy-MM-dd');
 				const tomorrow = format(nextDay(new Date(), 1), 'yyyy-MM-dd');
@@ -78,6 +76,13 @@ function App() {
 	if (error) {
 		throw new Error(error);
 	}
+	if (loading) {
+		return (
+			<div className='flex justify-center items-center h-screen bg-firmament_blue-950'>
+				<Oval height='80' width='80' color='#f9a826' secondaryColor='#f9a826' />
+			</div>
+		);
+	}
 
 	const carouselData = data && data[0]?.results;
 	const trendingData = data && data[1]?.results;
@@ -87,16 +92,16 @@ function App() {
 		<div className='bg-firmament_blue-950'>
 			<header className='h-screen'>
 				<Nav />
-				{loading ? <CarouselPlaceholder /> : <Carousel slides={carouselData} />}
+				<Carousel slides={carouselData} />
 			</header>
 			<main className='text-autumn_white-50 flex flex-col gap-14 py-14'>
-				{loading ? <TrendingPlaceholder /> : <Trending game={trendingData} />}
-				{loading ? <UpcomingPlaceholder /> : <Upcoming games={upcomingData} />}
-				{loading ? <StreamPlaceholder /> : <Stream game={carouselData[0]} />}
-				{!loading && <BestSeller games={trendingData} />}
-				{!loading && <Reviews game={trendingData[0]} />}
+				<Trending game={trendingData} />
+				<Upcoming games={upcomingData} />
+				<Stream game={carouselData[0]} />
+				<BestSeller games={trendingData} />
+				<Reviews game={trendingData[0]} />
 				<Blogs />
-				{!loading && <Counter game={counterData} />}
+				<Counter game={counterData} />
 				<Contact />
 			</main>
 			<Footer />
