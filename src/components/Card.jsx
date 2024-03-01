@@ -9,7 +9,7 @@ function Card({ game }) {
 				<img
 					src={background_image}
 					alt={slug}
-					className='aspect-video rounded-xl'
+					className='aspect-video rounded-xl object-cover'
 				/>
 				<p className='text-base text-autumn_white-50/80'>
 					<span className='text-atomic_orange-950'>Genre: </span>
