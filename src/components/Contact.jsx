@@ -57,7 +57,7 @@ const Contact = () => {
 						onChange={e => setEmail(e.target.value)}
 					/>
 					<textarea
-						placeholder='Text'
+						placeholder='Your text here...'
 						value={text}
 						onChange={e => setText(e.target.value)}
 					></textarea>
