@@ -12,7 +12,7 @@ import {
 
 function Footer() {
 	return (
-		<>
+		<footer>
 			<section
 				className='p-20 bg-firmament_blue-800 text-autumn_white-50 flex justify-between gap-10
                             [&>div]:w-1/3
@@ -132,7 +132,7 @@ function Footer() {
 					</a>
 				</p>
 			</div>
-		</>
+		</footer>
 	);
 }
 
