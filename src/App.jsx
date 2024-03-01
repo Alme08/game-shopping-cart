@@ -21,6 +21,7 @@ import Blogs from './components/Blogs';
 import Counter from './components/Counter';
 import Contact from './components/Contact';
 import Footer from './components/footer';
+import StreamPlaceholder from './components/Placeholder/StreamPlaceholder';
 
 function App() {
 	const [data, setData] = useState();
@@ -91,16 +92,14 @@ function App() {
 			<main className='text-autumn_white-50 flex flex-col gap-14 py-14'>
 				{loading ? <TrendingPlaceholder /> : <Trending game={trendingData} />}
 				{loading ? <UpcomingPlaceholder /> : <Upcoming games={upcomingData} />}
-				{!loading && <Stream game={carouselData[0]} />}
+				{loading ? <StreamPlaceholder /> : <Stream game={carouselData[0]} />}
 				{!loading && <BestSeller games={trendingData} />}
 				{!loading && <Reviews game={trendingData[0]} />}
 				<Blogs />
 				{!loading && <Counter game={counterData} />}
 				<Contact />
 			</main>
-			<footer>
-				<Footer />
-			</footer>
+			<Footer />
 		</div>
 	);
 }
