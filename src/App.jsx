@@ -4,7 +4,7 @@ import {
 	endOfYear,
 	startOfMonth,
 	subMonths,
-	nextDay,
+	addDays,
 	format,
 } from 'date-fns';
 import Carousel from './components/Carousel';
@@ -31,7 +31,7 @@ function App() {
 				setLoading(true);
 				const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 				const today = format(new Date(), 'yyyy-MM-dd');
-				const tomorrow = format(nextDay(new Date(), 1), 'yyyy-MM-dd');
+				const tomorrow = format(addDays(new Date(), 1), 'yyyy-MM-dd');
 				const startYear = format(startOfYear(new Date()), 'yyyy-MM-dd');
 				const endYear = format(endOfYear(new Date()), 'yyyy-MM-dd');
 				const startPastMonth = format(
