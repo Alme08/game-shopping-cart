@@ -22,7 +22,7 @@ function Browse() {
 			<Nav bgActive={true} />
 			<aside
 				style={{ scrollbarWidth: 'none' }}
-				className='sticky overflow-y-scroll flex flex-col gap-10 bg-firmament_blue-950 text-autumn_white-50 w-1/5 p-10 pr-0 pt-20'
+				className='sticky overflow-y-scroll flex flex-col gap-10 bg-firmament_blue-950 text-autumn_white-50 w-1/5 p-10 pt-20'
 			>
 				<section
 					className=' flex flex-col gap-8 [&>div]:flex [&>div]:flex-col [&_h2]:text-3xl [&_h2]:font-bold [&_h2]:pb-2
