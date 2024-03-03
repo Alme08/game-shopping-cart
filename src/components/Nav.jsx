@@ -2,9 +2,9 @@ import { CgMenu, CgClose, CgShoppingCart } from 'react-icons/cg';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Nav() {
+function Nav({ bgActive }) {
 	const [isActive, setIsActive] = useState(false);
-	const [scrolling, setScrolling] = useState(false);
+	const [scrolling, setScrolling] = useState(bgActive ? true : false);
 	//hover active and hover values are separated to manage the delay animation accurately
 	const [isHoverActive, setIsHoverActive] = useState(false);
 	const [hoverValues, setHoverValues] = useState({
@@ -86,13 +86,13 @@ function Nav() {
 				menuModal
 			) : (
 				<nav
-					className={`fixed top-0 flex w-full justify-between items-center py-3 px-20 h-fit text-lg transition-colors z-20 text-autumn_white-50
-				${scrolling && ' bg-firmament_blue-950'}`}
+					className={`fixed top-0 flex w-full justify-between items-center py-3 px-[4.5rem] h-fit text-lg transition-colors z-20 text-autumn_white-50
+				${scrolling && ' bg-firmament_blue-950'} `}
 				>
 					<div className='sm:flex sm:flex-grow sm:basis-0'>
 						<Link
 							to='/'
-							className='text-2xl font-bold tracking-wide cursor-pointer font-modern	'
+							className='text-4xl font-bold tracking-wide cursor-pointer font-modern	'
 						>
 							Bit<span className='text-atomic_orange-950'>Hub</span>
 						</Link>
@@ -131,7 +131,8 @@ function Nav() {
 						id='menu-backdrop'
 						className={` absolute  backdrop-blur-lg rounded transition-all duration-300 delay-75 ease-in-out
 						${isHoverActive ? 'opacity-10 visible' : 'opacity-0 invisible'}
-						${scrolling ? 'bg-autumn_white-50' : 'bg-firmament_blue-950'}`}
+						${scrolling ? 'bg-autumn_white-50' : 'bg-firmament_blue-950'}
+						`}
 						style={{
 							width: `${hoverValues.width}px`,
 							height: `${hoverValues.height}px`,
