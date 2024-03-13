@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 function Nav({ bgActive }) {
 	const [isActive, setIsActive] = useState(false);
 	const [scrolling, setScrolling] = useState(bgActive ? true : false);
+	const [hideNav, setHideNav] = useState(false);
 	//hover active and hover values are separated to manage the delay animation accurately
 	const [isHoverActive, setIsHoverActive] = useState(false);
 	const [hoverValues, setHoverValues] = useState({
@@ -14,13 +15,14 @@ function Nav({ bgActive }) {
 		height: null,
 	});
 
+	let currentScrollTop = window.scrollY;
+
 	useEffect(() => {
 		const handleScroll = () => {
-			if (window.scrollY > 10) {
-				setScrolling(true);
-			} else {
-				setScrolling(false);
-			}
+			let lastScrollTop = window.scrollY;
+			!bgActive && setScrolling(currentScrollTop > 100 ? true : false);
+			setHideNav(currentScrollTop >= lastScrollTop ? false : true);
+			currentScrollTop = lastScrollTop;
 		};
 
 		window.addEventListener('scroll', handleScroll);
@@ -86,7 +88,8 @@ function Nav({ bgActive }) {
 				menuModal
 			) : (
 				<nav
-					className={`fixed top-0 flex w-full justify-between items-center py-3 px-[4.5rem] h-fit text-lg transition-colors z-20 text-autumn_white-50
+					className={`fixed top-0 flex w-full justify-between items-center py-3 px-[4.5rem] h-fit text-lg z-20 text-autumn_white-50 transition-all duration-300 delay-75 ease-in-out
+				${hideNav ? 'transform -translate-y-full' : 'transform translate-y-0'}
 				${scrolling && ' bg-firmament_blue-950'} `}
 				>
 					<div className='sm:flex sm:flex-grow sm:basis-0'>
