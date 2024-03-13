@@ -14,6 +14,7 @@ import {
 import { FaChartSimple, FaCrown, FaGun } from 'react-icons/fa6';
 import { RiBoxingFill, RiSwordFill } from 'react-icons/ri';
 import Nav from './Nav';
+import { useState, useEffect } from 'react';
 
 const links = [
 	'New Releases',
@@ -42,12 +43,33 @@ const links = [
 ];
 
 function Browse() {
+	const [hideTop, setHideTop] = useState(false);
+
+	let currentScrollTop = window.scrollY;
+	useEffect(() => {
+		const handleScroll = () => {
+			let lastScrollTop = window.scrollY;
+			setHideTop(currentScrollTop >= lastScrollTop ? true : false);
+			currentScrollTop = lastScrollTop;
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
 	return (
-		<div className='flex bg-firmament_blue-950 h-screen'>
+		<div
+			className={`relative bg-firmament_blue-950 text-autumn_white-50 pt-20 transition-all duration-300 delay-75 ease-in-out
+			${hideTop ? 'pt-20' : ''}`}
+		>
 			<Nav bgActive={true} />
 			<aside
 				style={{ scrollbarWidth: 'none' }}
-				className='sticky overflow-y-scroll flex flex-col gap-10 bg-firmament_blue-950 text-autumn_white-50 w-1/5 p-10 pt-20'
+				className={`fixed top-0 bottom-0 overflow-y-scroll flex flex-col gap-10 bg-firmament_blue-950 text-autumn_white-50 w-1/5 px-10 transition-all duration-300 delay-75 ease-in-out
+				${hideTop ? 'pt-20' : ''}`}
 			>
 				<section
 					className=' flex flex-col gap-8 
@@ -77,6 +99,10 @@ function Browse() {
 					</div>
 				</section>
 			</aside>
+			<div className='w-4/5 ml-[20%]'>
+				<p className='h-screen'>asdasd</p>
+				<p>dasfasd</p>
+			</div>
 		</div>
 	);
 }
