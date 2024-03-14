@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { getYear } from 'date-fns';
 import {
 	FaStar,
@@ -19,26 +19,30 @@ import { useState, useEffect } from 'react';
 const links = [
 	'New Releases',
 	[
-		{ svg: FaStar, text: 'Last 30 days' },
-		{ svg: FaFire, text: 'This week' },
-		{ svg: FaAngleDoubleRight, text: 'Next week' },
+		{ svg: FaStar, text: 'Last 30 days', slug: 'last-30-days' },
+		{ svg: FaFire, text: 'This week', slug: 'this-week' },
+		{ svg: FaAngleDoubleRight, text: 'Next week', slug: 'next-week' },
 	],
 	'Top',
 	[
-		{ svg: FaTrophy, text: 'Best of the year' },
-		{ svg: FaChartSimple, text: `Popular in ${getYear(new Date())}` },
-		{ svg: FaCrown, text: 'All time top' },
+		{ svg: FaTrophy, text: 'Best of the year', slug: 'best-year' },
+		{
+			svg: FaChartSimple,
+			text: `Popular in ${getYear(new Date())}`,
+			slug: 'popular-year',
+		},
+		{ svg: FaCrown, text: 'All time top', slug: 'popular-all-time' },
 	],
 	'Genres',
 	[
-		{ svg: RiBoxingFill, text: 'Action' },
-		{ svg: FaChessKnight, text: 'Strategy' },
-		{ svg: RiSwordFill, text: 'RPG' },
-		{ svg: FaGun, text: 'shooter' },
-		{ svg: FaMountain, text: 'Adventure' },
-		{ svg: FaPuzzlePiece, text: 'Puzzle' },
-		{ svg: FaFlagCheckered, text: 'Racing' },
-		{ svg: FaFootballBall, text: 'Sports' },
+		{ svg: RiBoxingFill, text: 'Action', slug: 'action' },
+		{ svg: FaChessKnight, text: 'Strategy', slug: 'strategy' },
+		{ svg: RiSwordFill, text: 'RPG', slug: 'rpg' },
+		{ svg: FaGun, text: 'shooter', slug: 'shooter' },
+		{ svg: FaMountain, text: 'Adventure', slug: 'adventure' },
+		{ svg: FaPuzzlePiece, text: 'Puzzle', slug: 'puzzle' },
+		{ svg: FaFlagCheckered, text: 'Racing', slug: 'racing' },
+		{ svg: FaFootballBall, text: 'Sports', slug: 'sports' },
 	],
 ];
 
@@ -75,9 +79,9 @@ function Browse() {
 					className=' flex flex-col gap-8 
 								[&_div]:flex [&_div]:flex-col 
 								[&_h2]:text-3xl [&_h2]:font-bold [&_h2]:py-2
-								[&_button]:flex [&_button]:p-4 [&_button]:gap-3 [&_button]:items-center [&_button]:text-xl
-								[&_button:hover]:bg-autumn_white-50/10  [&_button]:rounded-xl
-								[&_button>p]:text-lg'
+								[&_a]:flex [&_a]:p-4 [&_a]:gap-3 [&_a]:items-center [&_a]:text-xl
+								[&_a:hover]:bg-autumn_white-50/10  [&_a]:rounded-xl
+								[&_a>p]:text-lg'
 				>
 					<div>
 						{links.map((link, index) => (
@@ -85,10 +89,10 @@ function Browse() {
 								{Array.isArray(link) ? (
 									<>
 										{link.map((subLink, index) => (
-											<button key={index}>
+											<Link to={`${subLink.slug}`} key={index}>
 												<subLink.svg />
 												<p>{subLink.text}</p>
-											</button>
+											</Link>
 										))}
 									</>
 								) : (
@@ -100,8 +104,7 @@ function Browse() {
 				</section>
 			</aside>
 			<div className='w-4/5 ml-[20%]'>
-				<p className='h-screen'>asdasd</p>
-				<p>dasfasd</p>
+				<Outlet />
 			</div>
 		</div>
 	);
