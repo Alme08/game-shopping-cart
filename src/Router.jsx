@@ -1,7 +1,9 @@
+import { element } from 'prop-types';
 import App from './App.jsx';
 import Browse from './components/Browse.jsx';
 import ErrorPage from './error-page.jsx';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Category from './components/Category.jsx';
 
 const Router = () => {
 	const router = createBrowserRouter([
@@ -14,6 +16,12 @@ const Router = () => {
 			path: '/browse',
 			element: <Browse />,
 			errorElement: <ErrorPage />,
+			children: [
+				{
+					path: ':category',
+					element: <Category />,
+				},
+			],
 		},
 	]);
 
