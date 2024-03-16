@@ -7,9 +7,9 @@ import {
 	addDays,
 	format,
 } from 'date-fns';
+import Nav from '../../Nav';
 import Carousel from './components/Carousel';
-import Nav from './components/Nav';
-import Trending from './components/trending';
+import Trending from './components/Trending';
 import Upcoming from './components/Upcoming';
 import Stream from './components/Stream';
 import BestSeller from './components/BestSeller';
@@ -17,7 +17,7 @@ import Reviews from './components/Reviews';
 import Blogs from './components/Blogs';
 import Counter from './components/Counter';
 import Contact from './components/Contact';
-import Footer from './components/footer';
+import Footer from '../../footer';
 import { Oval } from 'react-loader-spinner';
 
 function App() {
@@ -76,6 +76,7 @@ function App() {
 	if (error) {
 		throw new Error(error);
 	}
+
 	if (loading) {
 		return (
 			<div className='flex justify-center items-center h-screen bg-firmament_blue-950'>

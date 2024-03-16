@@ -1,6 +1,6 @@
 import Button from './Button';
 import PropTypes from 'prop-types';
-import StarRating from './Stars';
+import StarRating from '../../../Stars';
 
 function Trending({ game }) {
 	const { name, background_image, rating, ratings_count, genres } = game[0];

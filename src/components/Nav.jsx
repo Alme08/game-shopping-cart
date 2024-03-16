@@ -1,6 +1,7 @@
 import { CgMenu, CgClose, CgShoppingCart } from 'react-icons/cg';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { format, subDays } from 'date-fns';
 
 function Nav({ bgActive }) {
 	const [isActive, setIsActive] = useState(false);
@@ -46,6 +47,7 @@ function Nav({ bgActive }) {
 		});
 		setIsHoverActive(true);
 	};
+
 	const mouseLeave = () => {
 		setIsHoverActive(false);
 	};
@@ -109,7 +111,13 @@ function Nav({ bgActive }) {
 							Home
 						</Link>
 						<Link
-							to='browse'
+							to='/browse/last-30-days'
+							state={{
+								url: `dates=${format(
+									subDays(new Date(), 30),
+									'yyyy-MM-dd'
+								)},${format(new Date(), 'yyyy-MM-dd')}&ordering=-rating`,
+							}}
 							onMouseEnter={mouseEnter}
 							onMouseLeave={mouseLeave}
 						>
@@ -143,6 +151,7 @@ function Nav({ bgActive }) {
 							top: `${hoverValues.top}px`,
 						}}
 					/>
+
 					<CgMenu
 						className='sm:hidden cursor-pointer text-2xl'
 						onClick={handleMenu}

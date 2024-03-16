@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { FaYoutube, FaFacebookF, FaTwitch } from 'react-icons/fa';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import StarRating from './Stars';
+import StarRating from '../../../Stars';
 
 function Reviews({ game }) {
 	return (
