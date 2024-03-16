@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner';
 import GameCard from './GameCard';
+import { links } from '../links';
 
 function Category() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState();
 	const [data, setData] = useState();
-	const { state } = useLocation();
+	const { category, page } = useParams();
+	const infoLink = findDataBySlug(links, category);
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -18,7 +20,9 @@ function Category() {
 				const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 
 				const response = await fetch(
-					`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=12&${state.url}`,
+					`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=12&page=${
+						page ? page : 1
+					}${infoLink.url}`,
 					{
 						signal,
 					}
@@ -46,7 +50,26 @@ function Category() {
 		return () => {
 			controller.abort();
 		};
-	}, [state]);
+	}, [category, page]);
+
+	function findDataBySlug(links, slug) {
+		// Itera sobre cada elemento del array links
+		for (const section of links) {
+			// Verifica si el elemento actual es un array y tiene elementos dentro
+			if (Array.isArray(section) && section.length > 0) {
+				// Itera sobre los elementos dentro del subarray
+				for (const item of section) {
+					// Verifica si el slug coincide con el del elemento actual
+					if (item.slug === slug) {
+						// Retorna el elemento si se encuentra una coincidencia
+						return item;
+					}
+				}
+			}
+		}
+		// Retorna null si no se encuentra ninguna coincidencia
+		return null;
+	}
 
 	if (error) {
 		throw new Error(error);
@@ -62,12 +85,14 @@ function Category() {
 
 	return (
 		<div className='min-h-screen max-h-max'>
-			<h2 className='text-5xl font-modern'>{state.text}</h2>
+			<h2 className='text-5xl font-modern'>{infoLink.text}</h2>
 			<div className='grid grid-cols-3 gap-7 py-7'>
 				{data.results.map(result => (
 					<GameCard key={result.id} game={result} />
 				))}
 			</div>
+			<button>next</button>
+			<button>prev</button>
 		</div>
 	);
 }
