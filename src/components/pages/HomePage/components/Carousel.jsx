@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { FaComputer } from 'react-icons/fa6';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';
+import { BsNintendoSwitch } from 'react-icons/bs';
 //swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
@@ -75,6 +76,12 @@ function Carousel({ slides }) {
 								) {
 									currentSvgs.push('Xbox');
 									return <FaXbox key={platform.platform.id} />;
+								} else if (
+									platformName.includes('Nintendo') &&
+									!currentSvgs.includes('Nintendo')
+								) {
+									currentSvgs.push('Nintendo');
+									return <BsNintendoSwitch key={platform.platform.id} />;
 								}
 							})}
 						</div>
