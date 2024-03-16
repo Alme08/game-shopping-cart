@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner';
+import GameCard from './GameCard';
 
 function Category() {
 	const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ function Category() {
 				const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 
 				const response = await fetch(
-					`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=10&${state.url}`,
+					`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=12&${state.url}`,
 					{
 						signal,
 					}
@@ -60,11 +61,13 @@ function Category() {
 	}
 
 	return (
-		<div>
-			<h2>{state.text}</h2>
-			{data.results.map(result => (
-				<h2 key={result.id}>{result.name}</h2>
-			))}
+		<div className='min-h-screen max-h-max'>
+			<h2 className='text-5xl font-modern'>{state.text}</h2>
+			<div className='grid grid-cols-3 gap-7 py-7'>
+				{data.results.map(result => (
+					<GameCard key={result.id} game={result} />
+				))}
+			</div>
 		</div>
 	);
 }
