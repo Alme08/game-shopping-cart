@@ -156,7 +156,7 @@ function Browse() {
 			<Nav bgActive={true} />
 			<aside
 				style={{ scrollbarWidth: 'none' }}
-				className={`fixed top-0 bottom-0 overflow-y-scroll flex flex-col gap-10 bg-firmament_blue-950 text-autumn_white-50 w-1/5 px-10 transition-all duration-300 delay-75 ease-in-out
+				className={`fixed top-0 bottom-0 overflow-y-scroll flex flex-col gap-10 bg-firmament_blue-950 text-autumn_white-50 w-2/12 px-7 transition-all duration-300 delay-75 ease-in-out
 				${hideTop ? 'pt-20' : ''}`}
 			>
 				<section
@@ -191,7 +191,7 @@ function Browse() {
 					</div>
 				</section>
 			</aside>
-			<div className='w-4/5 ml-[20%]'>
+			<div className='w-10/12 ml-[16.666667%] pr-7'>
 				<Outlet />
 			</div>
 		</div>
