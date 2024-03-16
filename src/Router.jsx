@@ -20,6 +20,10 @@ const Router = () => {
 					path: ':category',
 					element: <Category />,
 				},
+				{
+					path: ':category/:page',
+					element: <Category />,
+				},
 			],
 		},
 	]);
