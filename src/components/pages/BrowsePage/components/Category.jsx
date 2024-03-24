@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner';
 import GameCard from './GameCard';
 import { links } from '../links';
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 
 function Category() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState();
 	const [data, setData] = useState();
-	const { category, page } = useParams();
+	let { category, page } = useParams();
 	const infoLink = findDataBySlug(links, category);
 
 	useEffect(() => {
@@ -20,9 +21,9 @@ function Category() {
 				const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 
 				const response = await fetch(
-					`${VITE_API_URL}games?key=${VITE_API_KEY}&page_size=12&page=${
-						page ? page : 1
-					}${infoLink.url}`,
+					`${VITE_API_URL}games?key=${VITE_API_KEY}&${
+						infoLink.url
+					}&page_size=12&page=${page ? page : '1'}`,
 					{
 						signal,
 					}
@@ -84,15 +85,112 @@ function Category() {
 	}
 
 	return (
-		<div className='min-h-screen max-h-max'>
-			<h2 className='text-5xl font-modern'>{infoLink.text}</h2>
-			<div className='grid grid-cols-3 gap-7 py-7'>
-				{data.results.map(result => (
-					<GameCard key={result.id} game={result} />
-				))}
+		<div className='min-h-screen max-h-max h-full flex flex-col justify-between'>
+			<div>
+				<h2 className='text-5xl font-modern'>{infoLink.text}</h2>
+				<div className='grid grid-cols-3 gap-7 py-7'>
+					{data.results.map(result => (
+						<GameCard key={result.id} game={result} />
+					))}
+				</div>
 			</div>
-			<button>next</button>
-			<button>prev</button>
+			<div
+				className='flex justify-center gap-5 text-2xl py-5 h-full
+			[&>div]:flex [&>div]:gap-3
+			[&_a]:w-10 [&_a]:h-10 [&_a]:rounded-full [&_a]:flex [&_a]:justify-center [&_a]:items-center [&_a]:transition-colors'
+			>
+				<Link
+					className={`hover:text-atomic_orange-950 ${
+						data.previous ? '' : 'invisible'
+					}`}
+					to={`/browse/${category}/${parseInt(page) - 1}`}
+				>
+					<GrFormPrevious />
+				</Link>
+				{!data.previous ? (
+					<div>
+						<Link
+							to={`/browse/${category}/1`}
+							className='bg-atomic_orange-950 text-firmament_blue-950'
+						>
+							1
+						</Link>
+						{data.count / 12 > 1 ? (
+							<Link
+								to={`/browse/${category}/2`}
+								className='hover:text-atomic_orange-950'
+							>
+								2
+							</Link>
+						) : (
+							''
+						)}
+						{data.count / 12 > 2 ? (
+							<Link
+								to={`/browse/${category}/3`}
+								className='hover:text-atomic_orange-950'
+							>
+								3
+							</Link>
+						) : (
+							''
+						)}
+					</div>
+				) : data.previous && data.next ? (
+					<div>
+						<Link
+							to={`/browse/${category}/${parseInt(page) - 1}`}
+							className='hover:text-atomic_orange-950'
+						>
+							{parseInt(page) - 1}
+						</Link>
+						<Link
+							to={`/browse/${category}/${parseInt(page)}`}
+							className='bg-atomic_orange-950 text-firmament_blue-950'
+						>
+							{page}
+						</Link>
+						<Link
+							to={`/browse/${category}/${parseInt(page) + 1}`}
+							className='hover:text-atomic_orange-950'
+						>
+							{parseInt(page) + 1}
+						</Link>
+					</div>
+				) : !data.next ? (
+					<div>
+						<Link
+							to={`/browse/${category}/${parseInt(page) - 2}`}
+							className='hover:text-atomic_orange-950'
+						>
+							{parseInt(page) - 2}
+						</Link>
+						<Link
+							to={`/browse/${category}/${parseInt(page) - 1}`}
+							className='hover:text-atomic_orange-950'
+						>
+							{parseInt(page) - 1}
+						</Link>
+						<Link className='bg-atomic_orange-950 text-firmament_blue-950'>
+							{page}
+						</Link>
+					</div>
+				) : (
+					''
+				)}
+				<Link
+					className={`hover:text-atomic_orange-950 ${
+						data.next ? '' : 'invisible'
+					}`}
+					to={
+						page
+							? `/browse/${category}/${parseInt(page) + 1}`
+							: `/browse/${category}/2`
+					}
+				>
+					<GrFormNext />
+				</Link>
+			</div>
 		</div>
 	);
 }
