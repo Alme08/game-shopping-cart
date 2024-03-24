@@ -23,7 +23,7 @@ function Browse() {
 
 	return (
 		<div
-			className={`relative bg-firmament_blue-950 text-autumn_white-50 pt-20 transition-all duration-300 delay-75 ease-in-out
+			className={`relative bg-firmament_blue-950 text-autumn_white-50 pt-20 transition-all duration-300 delay-75 ease-in-out h-full
 			${hideTop ? 'pt-20' : ''}`}
 		>
 			<Nav bgActive={true} />
@@ -67,7 +67,7 @@ function Browse() {
 					</div>
 				</section>
 			</aside>
-			<div className='w-10/12 ml-[16.666667%] pr-7 bg-firmament_blue-950 min-h-screen'>
+			<div className='w-10/12 ml-[16.666667%] pr-7 bg-firmament_blue-950 min-h-screen h-full'>
 				<Outlet />
 			</div>
 		</div>
