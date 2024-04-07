@@ -10,7 +10,7 @@ function Trending({ game }) {
 				<h2 className='font-modern text-4xl'>
 					Trending <span className='text-atomic_orange-950'>Now!</span>
 				</h2>
-				<Button text={'View all'} primary={true} />
+				<Button text={'View all'} primary={true} to={'/browse/last-30-days'} />
 			</div>
 			<div className='flex gap-5'>
 				<div className='aspect-video w-full relative overflow-hidden'>
