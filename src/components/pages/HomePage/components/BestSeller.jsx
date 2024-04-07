@@ -13,7 +13,7 @@ function BestSeller({ games }) {
 						(game, index) => index !== 0 && <Card key={game.id} game={game} />
 					)}
 				</div>
-				<Button text={'view all'} primary={true} />
+				<Button text={'view all'} primary={true} to={`/browse/popular-year`} />
 			</section>
 		</section>
 	);
