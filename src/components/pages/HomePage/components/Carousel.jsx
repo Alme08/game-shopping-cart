@@ -88,7 +88,7 @@ function Carousel({ slides }) {
 					</div>
 
 					<div className='mb-32 flex justify-center items-end gap-5'>
-						<Button text='details' />
+						<Button text='details' to={`/browse/game/${slides[current].id}`} />
 						<Button text='Buy Now' primary={true} />
 					</div>
 				</div>

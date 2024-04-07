@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StarRating from '../../../Stars';
 
 function Trending({ game }) {
-	const { name, background_image, rating, ratings_count, genres } = game[0];
+	const { name, background_image, rating, ratings_count, genres, id } = game[0];
 	return (
 		<section className='px-20'>
 			<div className='flex items-center justify-between pb-8'>
@@ -45,7 +45,7 @@ function Trending({ game }) {
 						</p>
 					</div>
 					<div className='flex justify-center gap-10'>
-						<Button text={'Details'} />
+						<Button text={'Details'} to={`/browse/game/${id}`} />
 						<Button text={'Buy now'} primary={true} />
 					</div>
 				</div>

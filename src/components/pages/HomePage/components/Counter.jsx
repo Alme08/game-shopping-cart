@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
 function Counter({ game }) {
-	const { background_image, slug, name, released } = game[0];
+	const { background_image, slug, name, released, id } = game[0];
 
 	const [remainingTime, setRemainingTime] = useState({
 		days: 0,
@@ -54,7 +54,7 @@ function Counter({ game }) {
 					nesciunt laudantium unde.
 				</p>
 				<div className='flex gap-5'>
-					<Button text={'details'} />
+					<Button text={'details'} to={`/browse/game/${id}`} />
 					<Button text={'pre-order'} primary={true} />
 				</div>
 				<div className='flex gap-10 [&>div]:flex [&>div]:flex-col [&>div]:items-center [&>div>span]:bg-atomic_orange-950 [&>div>span]:w-16 [&>div>span]:h-16 [&>div>span]:flex [&>div>span]:justify-center [&>div>span]:items-center [&>div>span]:text-5xl [&>div>span]:font-bold [&>div>span]:rounded-md [&>div>p]:font-3xl'>

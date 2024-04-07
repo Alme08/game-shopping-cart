@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function Card({ game }) {
-	const { background_image, slug, genres, name } = game;
+	const { background_image, slug, genres, name, id } = game;
 	return (
 		<div className='p-3 bg-firmament_blue-900 rounded-xl flex flex-col justify-between w-full h-[28rem]'>
 			<div className='flex flex-col gap-2'>
@@ -32,7 +32,10 @@ function Card({ game }) {
 				</p>
 
 				<div className='flex gap-5 text-lg [&>*]:px-10 [&>*]:py-1 [&>*]:rounded-xl [&>*]:uppercase'>
-					<Link className='border-atomic_orange-950 border-2 hover:shadow-custom hover:shadow-atomic_orange-950'>
+					<Link
+						to={`/browse/game/${id}`}
+						className='border-atomic_orange-950 border-2 hover:shadow-custom hover:shadow-atomic_orange-950'
+					>
 						details
 					</Link>
 					<Link className='bg-atomic_orange-950 border-[3px] border-atomic_orange-950	hover:shadow-custom'>
