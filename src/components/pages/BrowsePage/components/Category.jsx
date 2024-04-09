@@ -54,15 +54,15 @@ function Category() {
 	}, [category, page]);
 
 	function findDataBySlug(links, slug) {
-		// Itera sobre cada elemento del array links
+		// Iterate over each element of the array links
 		for (const section of links) {
-			// Verifica si el elemento actual es un array y tiene elementos dentro
+			// Checks if the current element is an array and has elements in it
 			if (Array.isArray(section) && section.length > 0) {
-				// Itera sobre los elementos dentro del subarray
+				// Iterate over the elements within the subarray
 				for (const item of section) {
-					// Verifica si el slug coincide con el del elemento actual
+					// Checks if the slug matches the slug of the current element.
 					if (item.slug === slug) {
-						// Retorna el elemento si se encuentra una coincidencia
+						// Returns the element if a match is found
 						return item;
 					}
 				}
