@@ -30,6 +30,7 @@ const Router = () => {
 		{
 			path: '/browse/game/:id',
 			element: <GamePage />,
+			errorElement: <ErrorPage />,
 		},
 	]);
 
